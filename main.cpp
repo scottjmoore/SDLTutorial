@@ -8,12 +8,12 @@ void input() {}
 void update() {}
 void draw(SDL_Renderer* renderer)
 {
-    SDL_SetRenderDrawColor(renderer, 40, 43, 200, 255);
+    SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
     SDL_Rect rect;
 
     rect.x=rect.y = 32;
-    rect.w = WIDTH - 64;
-    rect.h = HEIGHT - 64;
+    rect.w = WIDTH - (rect.x * 2);
+    rect.h = HEIGHT - (rect.y * 2);
 
     SDL_RenderFillRect(renderer, &rect);
     SDL_RenderPresent(renderer);
