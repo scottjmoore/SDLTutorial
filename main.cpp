@@ -40,7 +40,7 @@ int main(int arg_c, char* arg_v[])
         return -1;
     }
 
-    SDL_SetWindowTitle(window, "Test Window");
+    SDL_SetWindowTitle(window, "SDL 2 Tutorial");
     SDL_ShowCursor(1);
 
     while (running) {
