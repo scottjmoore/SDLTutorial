@@ -1,4 +1,8 @@
+CC=g++
 LIBS=SDL2
 
 SDLTutorial: main.cpp
-	g++ main.cpp -o SDLTutorial -l $(LIBS)
+	$(CC) main.cpp -o SDLTutorial -l $(LIBS)
+
+clean:
+	rm SDLTutorial

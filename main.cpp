@@ -4,8 +4,20 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 
-void input() {}
+struct gamestate
+{
+    bool running;
+    int frameCount;
+};
+
+void input(gamestate* gameState)
+{
+    if (gameState->frameCount > 3000)
+        gameState->running = false;
+}
+
 void update() {}
+
 void draw(SDL_Renderer* renderer)
 {
     SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
@@ -21,12 +33,10 @@ void draw(SDL_Renderer* renderer)
 
 int main(int arg_c, char* arg_v[])
 {
-    bool running = true;
+    gamestate gameState;
 
     SDL_Renderer* renderer;
     SDL_Window* window;
-
-    int frameCount, timerFPS, lastFrame, fps;
 
     if (SDL_Init(SDL_INIT_EVERYTHING))
     {
@@ -43,10 +53,15 @@ int main(int arg_c, char* arg_v[])
     SDL_SetWindowTitle(window, "SDL 2 Tutorial");
     SDL_ShowCursor(1);
 
-    while (running) {
-        input();
+    gameState.running = true;
+    gameState.frameCount = 0;
+
+    while (gameState.running) {
+        input(&gameState);
         update();
         draw(renderer);
+
+        gameState.frameCount++;
     }
 
     SDL_DestroyRenderer(renderer);
