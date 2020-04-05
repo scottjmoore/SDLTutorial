@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+
 #include <iostream>
 
 #define WIDTH 1920
@@ -20,15 +21,15 @@ void update() {}
 
 void draw(SDL_Renderer* renderer)
 {
-    SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
-    SDL_Rect rect;
+    // SDL_SetRenderDrawColor(renderer, 128, 128, 128, 0);
+    // SDL_Rect rect;
 
-    rect.x=rect.y = 32;
-    rect.w = WIDTH - (rect.x * 2);
-    rect.h = HEIGHT - (rect.y * 2);
+    // rect.x=rect.y = 32;
+    // rect.w = WIDTH - (rect.x * 2);
+    // rect.h = HEIGHT - (rect.y * 2);
 
-    SDL_RenderFillRect(renderer, &rect);
-    SDL_RenderPresent(renderer);
+    // SDL_RenderFillRect(renderer, &rect);
+    // SDL_RenderPresent(renderer);
 }
 
 int main(int arg_c, char* arg_v[])
@@ -37,6 +38,8 @@ int main(int arg_c, char* arg_v[])
 
     SDL_Renderer* renderer;
     SDL_Window* window;
+    SDL_Surface* surface;
+    SDL_Texture* texture;
 
     if (SDL_Init(SDL_INIT_EVERYTHING))
     {
@@ -50,6 +53,9 @@ int main(int arg_c, char* arg_v[])
         return -1;
     }
 
+    surface = SDL_LoadBMP("test.bmp");
+    texture = SDL_CreateTextureFromSurface(renderer, surface);
+
     SDL_SetWindowTitle(window, "SDL 2 Tutorial");
     SDL_ShowCursor(1);
 
@@ -61,9 +67,13 @@ int main(int arg_c, char* arg_v[])
         update();
         draw(renderer);
 
+        SDL_RenderCopy(renderer, texture, NULL, NULL);
+        SDL_RenderPresent(renderer);
+
         gameState.frameCount++;
     }
 
+    SDL_FreeSurface(surface);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
