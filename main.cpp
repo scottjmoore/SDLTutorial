@@ -73,6 +73,7 @@ int main(int arg_c, char* arg_v[])
         gameState.frameCount++;
     }
 
+    SDL_DestroyTexture(texture);
     SDL_FreeSurface(surface);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
